@@ -17,7 +17,7 @@ const pool = mysql.createPool({
   connectionLimit: 10,
 });
 
-app.get("/datos", async (req, res) => {
+app.get("/movies", async (req, res) => {
   try {
     const [rows] = await pool.query("SELECT * FROM usuarios");
     res.json(rows);
