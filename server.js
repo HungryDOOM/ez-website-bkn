@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import mysql from "mysql2/promise"; // Para bases SQL
+import mysql from "mysql2/promise";
 
-dotenv.config(); // Carga variables de entorno
+dotenv.config();
 
 const app = express();
 app.use(cors());
@@ -27,3 +27,10 @@ app.get("/datos", async (req, res) => {
 });
 
 app.listen(3000, () => console.log("Servidor corriendo en puerto 3000"));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
