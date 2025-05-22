@@ -14,8 +14,8 @@ router.get('/', async (req, res) => {
 
 // Crear una nueva película
 router.post('/', async (req, res) => {
-  const { title, director, year, genre, rating } = req.body;
-  const newMovie = new Movie({ title, director, year, genre, rating });
+  const { title, director, year, genre } = req.body;
+  const newMovie = new Movie({ title, director, year, genre });
   try {
     await newMovie.save();
     res.status(201).json(newMovie);
@@ -23,5 +23,15 @@ router.post('/', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+router.delete('/:id', async (req, res) => {
+  try {
+    await Movie.findByIdAndDelete(req.params.id);
+    res.json({ mensaje: 'Pelicula eliminada' });
+  } catch (error) {
+    res.status(500).json({ error: 'Error al eliminar la pelicula' });
+  }
+});
+
 
 module.exports = router;
